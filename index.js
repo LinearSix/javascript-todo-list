@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.body.onload = addElements;
 
+    // ADD THE ONLOAD ELEMENTS
     function addElements() { 
         
         // TITLE
@@ -26,12 +27,15 @@ document.body.onload = addElements;
         let inputField = document.createElement(`input`);
         // add the type to inputField
         inputField.type = `text`;
+        inputField.id = `return_todo`;
+        inputField.placeholder = `What do you need to do?`;
 
-        // SPACER DIV
-        // create empty div
-        let divSpacer = document.createElement(`div`);
-        let pSpacer = document.createElement(`p`);
-        divSpacer.appendChild(pSpacer);
+        // UL
+        // create empty ul
+        let ul = document.createElement(`ul`);
+        ul.id = (`todo_list`);
+        // let pSpacer = document.createElement(`p`);
+        // divSpacer.appendChild(pSpacer);
 
         // SUBMIT BUTTON
         // create new button
@@ -47,11 +51,52 @@ document.body.onload = addElements;
         getBody = document.getElementById(`body`); 
         document.body.insertBefore(divTitle, getBody);
         document.body.insertBefore(inputField, getBody);
-        document.body.insertBefore(divSpacer, getBody);
+        document.body.insertBefore(ul, getBody);
         document.body.insertBefore(button, getBody);
-    }
 
+        // CREATE THE INPUT FIELS ACTIONS
+        const inputReturn = document.getElementById(`return_todo`);
+        // console.log(inputReturn);
 
+        inputReturn.addEventListener('keydown', (x) => {
+            //console.log(`returned ${x.key}!`);
+            let strTodo = ``
+            let newLi;
+            let liContent;
+            let liNum = 1;
+            // let todoContent = document.createTextNode(``)
+            if (x.key === 'Enter') {
+                inputField.placeholder = `What do you need to do?`;
+                console.log(`returned ${x.returnValue}!`);
+                console.log(`returned ${x.key}!`);
+                console.log(`strTodo: ${strTodo}`);
+                // create new li and add it to ul
+                newLi = document.createElement(`li`);
+                newLi.id = liNum;
+                ul.appendChild(newLi);
 
+                newLi = document.getElementById('todo_list');
+                newLi.innerHTML += `<li>${strTodo}</li>`;
+
+                // liMarker = document.getElementById(liNum);
+                // liMarker. = strTodo;
+                // // add the text node to the newly created li
+                // newLi.appendChild(liMarker);
+                // // add the li node to the existing ul
+                // // strTodo = ``
+            } else {
+                strTodo = strTodo + x.key;
+                console.log(`strTodo: ${strTodo}`);
+            };
+        });
+
+        // CREATE THE BUTTON ACTIONS
+        const buttonClick = document.getElementById(`add_todo`);
+        console.log(buttonClick);
+
+        buttonClick.addEventListener('click', () => {
+            console.log(`click`);
+        });
+    };
 
 });
