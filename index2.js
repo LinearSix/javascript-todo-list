@@ -14,7 +14,7 @@ document.body.onload = addElements;
         // HEAD
         // update title tag
         let titleTag = document.getElementsByTagName(`title`)[0];
-        titleTag.textContent = (`Todo List`);
+        titleTag.textContent = (`Todo List`)
 
         // TITLE
         // create a new div and h1 elements
@@ -61,6 +61,7 @@ document.body.onload = addElements;
     // CHANGE ELEMENTS
 
         // CREATE THE INPUT FIELDS ACTION
+        let strTodo = ``;
         let newLiId = 1;
         let liText;
         let newLi;
@@ -70,14 +71,12 @@ document.body.onload = addElements;
         button.addEventListener('click', addTodo);
 
         function addTodo(x) {
-            if (x.key === `Enter` && (inputField.value !==``) || x.type === 'click' && (inputField.value !==``)) {
+            if (x.key === `Enter` && (strTodo!==``) || x.type === 'click' && (strTodo!==``)) {
                 // create X span to go in new li
                 const newLi = document.createElement(`li`);
-                const newSpan = document.createElement(`span`);
-                newLi.appendChild(newSpan);
                 ul.appendChild(newLi);
-                newSpan.textContent = `${inputField.value}    `;
-                newSpan.id = `li${newLiId}`;
+                newLi.textContent = `${strTodo}    `;
+                newLi.id = `li${newLiId}`;
 
                 // DELETE BUTTON
                 const xSpan = document.createElement(`span`);
@@ -97,20 +96,24 @@ document.body.onload = addElements;
                 newLi.appendChild(eSpan);
 
                 eSpan.addEventListener(`click`, (ev) => {
-                    let iSpan = document.createElement('span');
-                    let eInput = document.createElement('input');
-                    eInput.style.width = `120px`;
-                    eInput.style.height = `12px`;
-                    eInput.style.float = `auto`;
-                    eInput.value = newSpan.textContent;
-                    eInput.id = `input${newLiId}`;
-                    ispan.appendChild(eInput);
-                    newLi.replaceChild(iSpan, newSpan);    
+                let eInput = document.createElement('input');
+                eInput.style.width = `120px`;
+                eInput.style.height = `12px`;
+                eInput.style.float = `auto`;
+                newLi.appendChild(eInput);
+                eInput.id = `input${newLiId}`;
+                    
                 });
 
+                strTodo = ``;
                 inputField.value = (``);
                 inputField.placeholder = `What do you need to do?`;
-  
+                // newLiId ++;
+
+            } else {
+                strTodo += x.key;
+                strTodo = strTodo.replace(/[^a-z0-9]/gi,'');
+                console.log(`strTodo: ${strTodo}`);
 
                 // HIT ENTER IN EDIT FIELD
                 // eFinish = document.getElementById(`input${newLiId}`);
